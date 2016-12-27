@@ -3,7 +3,7 @@ FROM babim/kibana:base
 # Kibana version
 ENV KIBANA_VERSION=4.6.2
 
-RUN curl -LO https://download.elasticsearch.org/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
+RUN curl -LO https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
     tar xzf /kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C / && \
     mv /kibana-${KIBANA_VERSION}-linux-x64 /usr/share/kibana && \
     rm /usr/share/kibana/node/bin/node && \
