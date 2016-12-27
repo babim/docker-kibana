@@ -6,7 +6,7 @@ ENV GOSU_VERSION 1.9
 RUN apk add --no-cache curl ca-certificates
 
 # Install NodeJS
-RUN apk add --no-cache nodejs bash
+RUN apk add --no-cache nodejs
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
