@@ -1,7 +1,7 @@
 FROM babim/kibana:base
 
 # Kibana version
-ENV KIBANA_VERSION=4.5.0
+ENV KIBANA_VERSION=5.0.2
 
 RUN curl -LO https://download.elasticsearch.org/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
     tar xzf /kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C / && \
