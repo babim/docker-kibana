@@ -18,10 +18,10 @@
 # Kibana
 Thanks Portefaix
 
-[Alpine Linux][] is a Linux distribution built around musl libc and BusyBox.
+[Alpine Linux][https://alpinelinux.org/] is a Linux distribution built around musl libc and BusyBox.
 This image is based on the official Alpine Linux.
 
-[Kibana][] is an open source data visualization platform.
+[Kibana][https://www.elastic.co/products/kibana] is an open source data visualization platform.
 Port exported is : `5601`
 
 ## Usage
