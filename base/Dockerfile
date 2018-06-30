@@ -1,20 +1,20 @@
 FROM babim/alpinebase
 
-ENV GOSU_VERSION 1.9
+## alpine linux
+RUN apk add --no-cache wget bash && cd / && wget --no-check-certificate https://raw.githubusercontent.com/babim/docker-tag-options/master/z%20SCRIPT%20AUTO/option.sh && \
+    chmod 755 /option.sh
 
-# download tool
-RUN apk add --no-cache curl ca-certificates
+RUN apk add --no-cache nodejs su-exec
+RUN apk add --no-cache -t .build-deps wget ca-certificates gnupg openssl
 
-# Install NodeJS
-RUN apk add --no-cache nodejs
+RUN adduser -DH -s /sbin/nologin kibana
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-RUN curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64" && \
-    chmod +x /usr/local/bin/gosu
+ENV PATH /usr/share/kibana/bin:$PATH
 
 EXPOSE 5601
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-#CMD ["kibana", "-c", "/usr/share/kibana/config/kibana.yml"]
+CMD ["kibana"]

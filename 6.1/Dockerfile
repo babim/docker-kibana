@@ -1,6 +1,6 @@
 FROM babim/kibana:base
 
-ENV KIBANA_VERSION 6.3.0
+ENV KIBANA_VERSION 6.1.4
 
 ENV DOWNLOAD_URL "https://artifacts.elastic.co/downloads/kibana"
 ENV TARBAL "${DOWNLOAD_URL}/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz"
@@ -27,7 +27,4 @@ RUN set -ex && cd /tmp \
   && rm -rf /tmp/* \
   && apk del --purge .build-deps ca-certificates openssl tar wget
 
-RUN rm -f /docker-entrypoint.sh
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
 WORKDIR /usr/share/kibana

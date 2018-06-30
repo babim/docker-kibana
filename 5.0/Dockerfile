@@ -1,18 +1,30 @@
 FROM babim/kibana:base
 
-# Kibana version
-ENV KIBANA_VERSION=5.0.2
+ENV KIBANA_VERSION 5.0.2
 
-RUN curl -LO https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz && \
-    tar xzf /kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz -C / && \
-    mv /kibana-${KIBANA_VERSION}-linux-x86_64 /usr/share/kibana && \
-    rm /usr/share/kibana/node/bin/node && \
-    rm /usr/share/kibana/node/bin/npm && \
-    ln -s /usr/bin/node /usr/share/kibana/node/bin/node && \
-    ln -s /usr/bin/npm /usr/share/kibana/node/bin/npm && \
-    rm -rf /var/cache/apk/* /kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz
+ENV DOWNLOAD_URL "https://artifacts.elastic.co/downloads/kibana"
+ENV TARBAL "${DOWNLOAD_URL}/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz"
 
-COPY kibana.yml /usr/share/kibana/config/kibana.yml
+RUN set -ex && cd /tmp \
+  && echo "===> Install Kibana..." \
+  && wget -q --no-check-certificate -O kibana.tar.gz "$TARBAL"; \
+  tar -xf kibana.tar.gz \
+  && ls -lah \
+  && mv kibana-$KIBANA_VERSION-linux-x86_64 /usr/share/kibana \
+  # the default "server.host" is "localhost" in 5+
+  && sed -ri "s!^(\#\s*)?(server\.host:).*!\2 '0.0.0.0'!" /usr/share/kibana/config/kibana.yml \
+  && grep -q "^server\.host: '0.0.0.0'\$" /usr/share/kibana/config/kibana.yml \
+  # ensure the default configuration is useful when using --link
+  && sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" /usr/share/kibana/config/kibana.yml \
+  && grep -q "^elasticsearch\.url: 'http://elasticsearch:9200'\$" /usr/share/kibana/config/kibana.yml \
+  # usr alpine nodejs and not bundled version
+  && bundled='NODE="${DIR}/node/bin/node"' \
+  && apline_node='NODE="/usr/bin/node"' \
+  && sed -i "s|$bundled|$apline_node|g" /usr/share/kibana/bin/kibana-plugin \
+  && sed -i "s|$bundled|$apline_node|g" /usr/share/kibana/bin/kibana \
+  && rm -rf /usr/share/kibana/node \
+  && chown -R kibana:kibana /usr/share/kibana \
+  && rm -rf /tmp/* \
+  && apk del --purge .build-deps ca-certificates openssl tar wget
 
-# clean
-RUN apk del curl ca-certificates
+WORKDIR /usr/share/kibana
