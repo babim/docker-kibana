@@ -7,7 +7,7 @@ ENV TARBAL "${DOWNLOAD_URL}/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz"
 
 RUN set -ex && cd /tmp \
   && echo "===> Install Kibana..." \
-  && wget --no-check-certificate -O kibana.tar.gz "$TARBAL"; \
+  && wget --no-check-certificate --progress=bar:force -O kibana.tar.gz "$TARBAL"; \
   tar -xf kibana.tar.gz \
   && ls -lah \
   && mv kibana-$KIBANA_VERSION-linux-x86_64 /usr/share/kibana \
