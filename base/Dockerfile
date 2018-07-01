@@ -5,7 +5,7 @@ RUN apk add --no-cache wget bash && cd / && wget --no-check-certificate https://
     chmod 755 /option.sh
 
 RUN apk add --no-cache nodejs su-exec
-RUN apk add --no-cache -t .build-deps wget curl ca-certificates gnupg openssl
+RUN apk add --no-cache wget curl ca-certificates gnupg openssl
 
 RUN adduser -DH -s /sbin/nologin kibana
 
