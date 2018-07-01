@@ -25,7 +25,7 @@ RUN set -ex && cd /tmp \
   && rm -rf /usr/share/kibana/node \
   && chown -R kibana:kibana /usr/share/kibana \
   && rm -rf /tmp/* \
-  && apk del .build-deps ca-certificates openssl tar wget
+  && apk del .build-deps  wget
 
 RUN rm -f /docker-entrypoint.sh
 COPY docker-entrypoint.sh /docker-entrypoint.sh
