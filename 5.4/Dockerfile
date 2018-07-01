@@ -7,7 +7,7 @@ ENV TARBAL "${DOWNLOAD_URL}/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz"
 
 RUN set -ex && cd /tmp \
   && echo "===> Install Kibana..." \
-  && wget -q --no-check-certificate -O kibana.tar.gz "$TARBAL"; \
+  && wget --no-check-certificate -O kibana.tar.gz "$TARBAL"; \
   tar -xf kibana.tar.gz \
   && ls -lah \
   && mv kibana-$KIBANA_VERSION-linux-x86_64 /usr/share/kibana \
@@ -25,6 +25,6 @@ RUN set -ex && cd /tmp \
   && rm -rf /usr/share/kibana/node \
   && chown -R kibana:kibana /usr/share/kibana \
   && rm -rf /tmp/* \
-  && apk del --purge .build-deps ca-certificates openssl tar wget
+  && apk del .build-deps ca-certificates openssl tar wget
 
 WORKDIR /usr/share/kibana
