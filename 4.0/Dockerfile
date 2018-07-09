@@ -16,3 +16,5 @@ COPY kibana.yml /usr/share/kibana/config/kibana.yml
 
 # clean
 RUN apk del curl ca-certificates
+
+ENV PATH /usr/share/kibana/bin:$PATH

@@ -28,3 +28,5 @@ RUN set -ex && cd /tmp \
   && apk del --purge wget ca-certificates gnupg openssl
 
 WORKDIR /usr/share/kibana
+
+ENV PATH /usr/share/kibana/bin:$PATH

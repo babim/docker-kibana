@@ -12,8 +12,6 @@ RUN adduser -DH -s /sbin/nologin kibana
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-ENV PATH /usr/share/kibana/bin:$PATH
-
 EXPOSE 5601
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -27,6 +27,8 @@ RUN set -ex && cd /tmp \
   && rm -rf /tmp/* \
   && apk del --purge wget ca-certificates gnupg openssl
 
+ENV PATH /usr/share/kibana/bin:$PATH
+
 RUN rm -f /docker-entrypoint.sh
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
