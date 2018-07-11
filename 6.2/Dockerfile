@@ -5,6 +5,8 @@ ENV KIBANA_VERSION 6.2.4
 ENV DOWNLOAD_URL "https://artifacts.elastic.co/downloads/kibana"
 ENV TARBAL "${DOWNLOAD_URL}/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz"
 
+RUN adduser -DH -s /sbin/nologin kibana
+
 RUN set -ex && cd /tmp \
   && echo "===> Install Kibana..." \
   && wget --no-check-certificate --progress=bar:force -O kibana.tar.gz "$TARBAL"; \
@@ -33,3 +35,8 @@ RUN rm -f /docker-entrypoint.sh
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 WORKDIR /usr/share/kibana
+
+EXPOSE 5601
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["kibana"]

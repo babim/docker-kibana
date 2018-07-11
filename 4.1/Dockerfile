@@ -3,6 +3,8 @@ FROM babim/kibana:base
 # Kibana version
 ENV KIBANA_VERSION=4.1.3
 
+RUN adduser -DH -s /sbin/nologin kibana
+
 RUN curl -LO https://download.elasticsearch.org/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
     tar xzf /kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C / && \
     mv /kibana-${KIBANA_VERSION}-linux-x64 /usr/share/kibana && \
@@ -18,3 +20,8 @@ COPY kibana.yml /usr/share/kibana/config/kibana.yml
 RUN apk del curl ca-certificates
 
 ENV PATH /usr/share/kibana/bin:$PATH
+
+EXPOSE 5601
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["kibana"]
