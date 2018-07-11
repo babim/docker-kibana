@@ -7,7 +7,5 @@ RUN apk add --no-cache wget bash && cd / && wget --no-check-certificate https://
 RUN apk add --no-cache nodejs su-exec
 RUN apk add --no-cache wget curl ca-certificates gnupg openssl
 
-RUN adduser -DH -s /sbin/nologin kibana
-
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
