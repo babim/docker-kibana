@@ -3,7 +3,7 @@ FROM babim/kibana:base
 # Kibana version
 ENV KIBANA_VERSION=4.5.0
 ENV KIBANA 4
-ENV DOWNLOAD_URL "https:///download.elasticsearch.org/kibana/kibana"
+ENV DOWNLOAD_URL "https://download.elastic.co/kibana/kibana"
 ENV BIT x64
 ENV TARBAL "${DOWNLOAD_URL}/kibana-${KIBANA_VERSION}-linux-${BIT}.tar.gz"
 
