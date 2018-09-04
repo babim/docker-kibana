@@ -2,26 +2,21 @@ FROM babim/kibana:base
 
 # Kibana version
 ENV KIBANA_VERSION=4.5.0
+ENV KIBANA 4
+ENV DOWNLOAD_URL "https:///download.elasticsearch.org/kibana/kibana"
+ENV BIT x64
+ENV TARBAL "${DOWNLOAD_URL}/kibana-${KIBANA_VERSION}-linux-${BIT}.tar.gz"
 
-RUN adduser -DH -s /sbin/nologin kibana
+# install
+RUN curl -s https://raw.githubusercontent.com/babim/docker-tag-options/master/z%20ElasticStack%20install/kibana_install.sh | bash
+# remove packages
+RUN curl -s https://raw.githubusercontent.com/babim/docker-tag-options/master/z%20ElasticStack%20install/kibana_clean.sh | bash
 
-RUN curl -LO https://download.elasticsearch.org/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
-    tar xzf /kibana-${KIBANA_VERSION}-linux-x64.tar.gz -C / && \
-    mv /kibana-${KIBANA_VERSION}-linux-x64 /usr/share/kibana && \
-    rm /usr/share/kibana/node/bin/node && \
-    rm /usr/share/kibana/node/bin/npm && \
-    ln -s /usr/bin/node /usr/share/kibana/node/bin/node && \
-    ln -s /usr/bin/npm /usr/share/kibana/node/bin/npm && \
-    rm -rf /var/cache/apk/* /kibana-${KIBANA_VERSION}-linux-x64.tar.gz
-
-COPY kibana.yml /usr/share/kibana/config/kibana.yml
-
-# clean
-RUN apk del curl ca-certificates
+WORKDIR /usr/share/kibana
 
 ENV PATH /usr/share/kibana/bin:$PATH
 
 EXPOSE 5601
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/start.sh"]
 CMD ["kibana"]
