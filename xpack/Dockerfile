@@ -1,4 +1,8 @@
-FROM babim/kibana:base
+FROM babim/alpinebase
+
+## alpine linux
+RUN apk add --no-cache wget curl bash && cd / && wget --no-check-certificate https://raw.githubusercontent.com/babim/docker-tag-options/master/z%20SCRIPT%20AUTO/option.sh && \
+    chmod 755 /option.sh
 
 ENV KIBANA_VERSION 6.4.0
 ENV KIBANA 6
