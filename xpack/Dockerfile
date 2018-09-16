@@ -21,4 +21,4 @@ ENV PATH /usr/share/kibana/bin:$PATH
 EXPOSE 5601
 
 ENTRYPOINT ["/start.sh"]
-CMD ["kibana"]
+CMD ["supervisord", "-nc", "/etc/supervisor/supervisord.conf"]
