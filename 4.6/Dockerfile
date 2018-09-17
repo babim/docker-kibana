@@ -19,4 +19,4 @@ EXPOSE 5601
 
 #ENTRYPOINT ["/start.sh"]
 #CMD ["kibana"]
-CMD ["supervisord", "-nc", "/etc/supervisor/supervisord.conf"]
+CMD ["/sbin/tini","--","/usr/bin/supervisord","-c", "/etc/supervisor/supervisord.conf"]
