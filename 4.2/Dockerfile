@@ -11,7 +11,5 @@ ENV TARBAL "${DOWNLOAD_URL}/kibana-${KB_VERSION}-linux-${BIT}.tar.gz"
 RUN wget --no-check-certificate -O - https://raw.githubusercontent.com/babim/docker-tag-options/master/z%20ElasticStack%20install/kibana_install.sh | bash
 
 WORKDIR /usr/share/kibana
-
 ENV PATH /usr/share/kibana/bin:$PATH
-
 EXPOSE 5601
