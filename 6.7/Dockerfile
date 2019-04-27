@@ -1,6 +1,6 @@
 FROM babim/kibana:base
 
-ENV KB_VERSION 6.6.2
+ENV KB_VERSION 6.7.1
 ENV KIBANA 6
 ENV DOWNLOAD_URL "https://artifacts.elastic.co/downloads/kibana"
 ENV TARBAL "${DOWNLOAD_URL}/kibana-${KB_VERSION}-linux-x86_64.tar.gz"
